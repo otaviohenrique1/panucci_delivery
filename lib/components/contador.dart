@@ -1,48 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:panucci_delivery/store/item_store.dart';
 
-class Contador extends StatefulWidget {
-  const Contador({Key? key}) : super(key: key);
+class Contador extends StatelessWidget {
+  Contador({Key? key}) : super(key: key);
 
-  @override
-  State<Contador> createState() => _ContadorState();
-}
+  final ItemStore itemStore = ItemStore();
 
-class _ContadorState extends State<Contador> {
-  int valorContador = 0;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        InkWell(
-          borderRadius: BorderRadius.circular(20),
-          onTap: () {
-            setState(() {
-              if (valorContador > 0) {
-                valorContador--;
+    return Observer(
+      builder: (context) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: () {
+              if (itemStore.valorContador > 0) {
+                itemStore.removerItem();
               }
-            });
-          },
-          child: const Icon(
-            Icons.remove_circle_outline,
-            size: 20,
+            },
+            child: const Icon(
+              Icons.remove_circle_outline,
+              size: 20,
+            ),
           ),
-        ),
-        Text(valorContador.toString()),
-        // const Text("0"),
-        InkWell(
-          borderRadius: BorderRadius.circular(20),
-          onTap: () {
-            setState(() {
-              valorContador++;
-            });
-          },
-          child: const Icon(
-            Icons.add_circle_outline,
-            size: 20,
+          Text(itemStore.valorContador.toString()),
+          // const Text("0"),
+          InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: () {
+              itemStore.adicionaItem();
+            },
+            child: const Icon(
+              Icons.add_circle_outline,
+              size: 20,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
