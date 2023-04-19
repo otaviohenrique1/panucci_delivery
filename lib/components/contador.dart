@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:panucci_delivery/store/item_store.dart';
+import 'package:panucci_delivery/store/carrinho_store.dart';
+import 'package:provider/provider.dart';
 
 class Contador extends StatelessWidget {
   Contador({Key? key}) : super(key: key);
@@ -9,6 +11,10 @@ class Contador extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final carrinhoStore = Provider.of<CarrinhoStore>(context, listen: false);
+    /* listen: true => se as mudancas vao ser refletidas para o resto da aplicacao */
+    /* Observer => refaz a tela se o estado foi mudado */
+
     return Observer(
       builder: (context) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -18,6 +24,7 @@ class Contador extends StatelessWidget {
             onTap: () {
               if (itemStore.valorContador > 0) {
                 itemStore.removerItem();
+                carrinhoStore.removeCarrinho();
               }
             },
             child: const Icon(
@@ -31,6 +38,7 @@ class Contador extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             onTap: () {
               itemStore.adicionaItem();
+              carrinhoStore.adicionaCarrinho();
             },
             child: const Icon(
               Icons.add_circle_outline,
