@@ -14,6 +14,9 @@ abstract class _CarrinhoStore with Store {
   @computed
   int get quantidadeItem => listaItem.length;
 
+  @computed
+  bool get listaVazia => listaItem.isEmpty;
+
   @action
   void adicionaCarrinho(Item item) {
     listaItem.add(item);
