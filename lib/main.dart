@@ -18,10 +18,7 @@ class PanucciDelivery extends StatelessWidget {
             seedColor: const Color.fromARGB(255, 255, 83, 83),
           ),
           useMaterial3: true),
-      home: Provider(
-        create: (context) => CarrinhoStore(),
-        child: Home(),
-      ),
+      home: Provider(create: (context) => CarrinhoStore(), child: Home()),
     );
   }
 }
